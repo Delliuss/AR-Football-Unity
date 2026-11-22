@@ -422,7 +422,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 296003637}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 938813504}
+        m_TargetAssemblyTypeName: ARPlacementManager, Assembly-CSharp
+        m_MethodName: SelectGoal
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &296003637
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -713,7 +725,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 395081247}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 938813504}
+        m_TargetAssemblyTypeName: ARPlacementManager, Assembly-CSharp
+        m_MethodName: SelectPlayer
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &395081247
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1328,6 +1352,54 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!1 &938813503
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 938813505}
+  - component: {fileID: 938813504}
+  m_Layer: 0
+  m_Name: ARManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &938813504
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 938813503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 815a0123e2500463f85898aba9a5ec43, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ARPlacementManager
+  raycastManager: {fileID: 2001955801}
+  goalPrefab: {fileID: 4081721063543579669, guid: fc1b7fc6503e04f5ebdc9916e18e0dff, type: 3}
+  ballPrefab: {fileID: 5388945228828165207, guid: fbe6ab6fe258e44c780cc59db0e61de9, type: 3}
+  playerPrefab: {fileID: 3636052941036088929, guid: e6ae5792b71ff4ed6b1ee17390c66051, type: 3}
+--- !u!4 &938813505
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 938813503}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.42312, y: -2.14881, z: 2.21293}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1072143653
 GameObject:
   m_ObjectHideFlags: 0
@@ -1863,7 +1935,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1812204875}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 938813504}
+        m_TargetAssemblyTypeName: ARPlacementManager, Assembly-CSharp
+        m_MethodName: SelectBall
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1812204875
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2213,3 +2297,4 @@ SceneRoots:
   - {fileID: 2001955800}
   - {fileID: 1492737070}
   - {fileID: 1589564871}
+  - {fileID: 938813505}
