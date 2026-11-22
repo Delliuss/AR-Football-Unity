@@ -15,9 +15,13 @@ public class ARPlacementManager : MonoBehaviour
     [SerializeField] private GameObject ballPrefab;
     [SerializeField] private GameObject playerPrefab;
 
-
     private enum SelectedType { None, Goal, Ball, Player }
     private SelectedType currentMode = SelectedType.None;
+
+    // Память о поставленных объектах (по одному каждого вида)
+    private GameObject spawnedGoal;
+    private GameObject spawnedBall;
+    private GameObject spawnedPlayer;
 
     private readonly List<ARRaycastHit> hits = new List<ARRaycastHit>();
 
@@ -42,8 +46,8 @@ public class ARPlacementManager : MonoBehaviour
         if (IsTouchOverUI(touch.screenPosition))
             return;
 
-
-        if (touch.phase == TouchPhase.Began)
+        // Реагируем и на нажатие (Began), и на движение пальца по экрану (Moved)
+        if (touch.phase == TouchPhase.Began || touch.phase == TouchPhase.Moved)
         {
             if (currentMode == SelectedType.None)
             {
@@ -53,23 +57,36 @@ public class ARPlacementManager : MonoBehaviour
             if (raycastManager.Raycast(touch.screenPosition, hits, TrackableType.PlaneWithinPolygon))
             {
                 Pose hitPose = hits[0].pose;
-                SetObject(hitPose);
+                SetOrMoveObject(hitPose);
             }
         }
     }
 
-    private void SetObject(Pose hitPose)
+    // Если объекта ещё нет - создаём. Если уже поставлен — переставляем
+    private void SetOrMoveObject(Pose hitPose)
     {
         if (currentMode == SelectedType.Goal && goalPrefab != null)
-            Instantiate(goalPrefab, hitPose.position, hitPose.rotation);
+        {
+            if (spawnedGoal == null)
+                spawnedGoal = Instantiate(goalPrefab, hitPose.position, hitPose.rotation);
+            else
+                spawnedGoal.transform.position = hitPose.position;
+        }
         else if (currentMode == SelectedType.Ball && ballPrefab != null)
-            Instantiate(ballPrefab, hitPose.position, hitPose.rotation);
+        {
+            if (spawnedBall == null)
+                spawnedBall = Instantiate(ballPrefab, hitPose.position, hitPose.rotation);
+            else
+                spawnedBall.transform.position = hitPose.position;
+        }
         else if (currentMode == SelectedType.Player && playerPrefab != null)
-            Instantiate(playerPrefab, hitPose.position, hitPose.rotation);
-
+        {
+            if (spawnedPlayer == null)
+                spawnedPlayer = Instantiate(playerPrefab, hitPose.position, hitPose.rotation);
+            else
+                spawnedPlayer.transform.position = hitPose.position;
+        }
     }
-
-
 
     public void SelectGoal()
     {
@@ -99,5 +116,4 @@ public class ARPlacementManager : MonoBehaviour
 
         return results.Count > 0;
     }
-
 }
