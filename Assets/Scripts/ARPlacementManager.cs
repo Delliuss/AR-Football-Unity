@@ -39,10 +39,9 @@ public class ARPlacementManager : MonoBehaviour
         Touch touch = Touch.activeTouches[0];
 
         // Проверяем, не попал ли палец в UI
-        if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject(touch.finger.index))
-        {
+        if (IsTouchOverUI(touch.screenPosition))
             return;
-        }
+
 
         if (touch.phase == TouchPhase.Began)
         {
@@ -86,4 +85,19 @@ public class ARPlacementManager : MonoBehaviour
     {
         currentMode = SelectedType.Player;
     }
+
+    private bool IsTouchOverUI(Vector2 screenPosition)
+    {
+        if (EventSystem.current == null)
+            return false;
+
+        PointerEventData eventData = new PointerEventData(EventSystem.current);
+        eventData.position = screenPosition;
+
+        List<RaycastResult> results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventData, results);
+
+        return results.Count > 0;
+    }
+
 }
