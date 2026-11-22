@@ -1385,6 +1385,7 @@ MonoBehaviour:
   goalPrefab: {fileID: 4081721063543579669, guid: fc1b7fc6503e04f5ebdc9916e18e0dff, type: 3}
   ballPrefab: {fileID: 5388945228828165207, guid: fbe6ab6fe258e44c780cc59db0e61de9, type: 3}
   playerPrefab: {fileID: 3636052941036088929, guid: e6ae5792b71ff4ed6b1ee17390c66051, type: 3}
+  rotationSlider: {fileID: 1958297690}
 --- !u!4 &938813505
 Transform:
   m_ObjectHideFlags: 0
@@ -2022,8 +2023,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 360, y: 0.5}
-  m_AnchoredPosition: {x: -193542.2, y: -521.6}
-  m_SizeDelta: {x: -388531.1, y: 81}
+  m_AnchoredPosition: {x: -193537.83, y: -521.6}
+  m_SizeDelta: {x: -388522.34, y: 137}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1958297690
 MonoBehaviour:
