@@ -1,0 +1,28 @@
+{
+  "buildFiles": [
+    "/Users/sven/UnityProjects/AR_Football_Test_Proj/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/cpp/CMakeLists.txt",
+    "/Users/sven/UnityProjects/AR_Football_Test_Proj/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/src/main/cpp/GameActivity/CMakeLists.txt"
+  ],
+  "cleanCommandsComponents": [
+    [
+      "/Applications/Unity/Hub/Editor/6000.2.6f2/PlaybackEngines/AndroidPlayer/SDK/cmake/3.22.1/bin/ninja",
+      "-C",
+      "/Users/sven/UnityProjects/AR_Football_Test_Proj/.utmp/RelWithDebInfo/3e5c26d1/arm64-v8a",
+      "clean"
+    ]
+  ],
+  "buildTargetsCommandComponents": [
+    "/Applications/Unity/Hub/Editor/6000.2.6f2/PlaybackEngines/AndroidPlayer/SDK/cmake/3.22.1/bin/ninja",
+    "-C",
+    "/Users/sven/UnityProjects/AR_Football_Test_Proj/.utmp/RelWithDebInfo/3e5c26d1/arm64-v8a",
+    "{LIST_OF_TARGETS_TO_BUILD}"
+  ],
+  "libraries": {
+    "game::@d02bb112ea9f9c2ed29f": {
+      "artifactName": "game",
+      "abi": "arm64-v8a",
+      "output": "/Users/sven/UnityProjects/AR_Football_Test_Proj/Library/Bee/Android/Prj/IL2CPP/Gradle/unityLibrary/build/intermediates/cxx/RelWithDebInfo/3e5c26d1/obj/arm64-v8a/libgame.so",
+      "runtimeFiles": []
+    }
+  }
+}
