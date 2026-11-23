@@ -19,7 +19,8 @@ public class ARPlacementManager : MonoBehaviour
     [Header("UI")]
     [SerializeField] private Slider rotationSlider;
 
-    private enum SelectedType { None, Goal, Ball, Player }
+    // Добавили режим Run для управления бегом персонажа
+    private enum SelectedType { None, Goal, Ball, Player, Run }
     private SelectedType currentMode = SelectedType.None;
 
     private GameObject spawnedGoal;
@@ -27,17 +28,13 @@ public class ARPlacementManager : MonoBehaviour
     private GameObject spawnedPlayer;
     private GameObject activeObject;
 
+    private PlayerController playerController;
+
     private readonly List<ARRaycastHit> hits = new List<ARRaycastHit>();
 
-    private void OnEnable()
-    {
-        EnhancedTouchSupport.Enable();
-    }
+    private void OnEnable() => EnhancedTouchSupport.Enable();
+    private void OnDisable() => EnhancedTouchSupport.Disable();
 
-    private void OnDisable()
-    {
-        EnhancedTouchSupport.Disable();
-    }
     private void Start()
     {
         if (rotationSlider != null)
@@ -50,7 +47,7 @@ public class ARPlacementManager : MonoBehaviour
 
     private void Update()
     {
-        if (Touch.activeTouches.Count == 0)
+        if (Touch.activeTouches.Count == 0 || currentMode == SelectedType.None)
             return;
 
         Touch touch = Touch.activeTouches[0];
@@ -60,13 +57,20 @@ public class ARPlacementManager : MonoBehaviour
 
         if (touch.phase == TouchPhase.Began || touch.phase == TouchPhase.Moved)
         {
-            if (currentMode == SelectedType.None)
-                return;
-
             if (raycastManager.Raycast(touch.screenPosition, hits, TrackableType.PlaneWithinPolygon))
             {
                 Pose hitPose = hits[0].pose;
-                SetOrMoveObject(hitPose);
+
+                // Если выбран режим бега — отправляем человека бежать в эту точку!
+                if (currentMode == SelectedType.Run)
+                {
+                    if (playerController != null)
+                        playerController.SetMoveTarget(hitPose.position);
+                }
+                else
+                {
+                    SetOrMoveObject(hitPose);
+                }
             }
         }
     }
@@ -94,9 +98,16 @@ public class ARPlacementManager : MonoBehaviour
         else if (currentMode == SelectedType.Player && playerPrefab != null)
         {
             if (spawnedPlayer == null)
+            {
                 spawnedPlayer = Instantiate(playerPrefab, hitPose.position, hitPose.rotation);
+                playerController = spawnedPlayer.GetComponent<PlayerController>();
+            }
             else
+            {
                 spawnedPlayer.transform.position = hitPose.position;
+                if (playerController != null)
+                    playerController.ResetTarget();
+            }
 
             activeObject = spawnedPlayer;
         }
@@ -116,9 +127,7 @@ public class ARPlacementManager : MonoBehaviour
     private void SyncSlider()
     {
         if (rotationSlider != null && activeObject != null)
-        {
             rotationSlider.SetValueWithoutNotify(activeObject.transform.eulerAngles.y);
-        }
     }
 
     public void SelectGoal()
@@ -138,6 +147,14 @@ public class ARPlacementManager : MonoBehaviour
     public void SelectPlayer()
     {
         currentMode = SelectedType.Player;
+        activeObject = spawnedPlayer;
+        SyncSlider();
+    }
+
+    // Новая функция для 4-й кнопки UI («Бег» / «Играть»)
+    public void SelectRunMode()
+    {
+        currentMode = SelectedType.Run;
         activeObject = spawnedPlayer;
         SyncSlider();
     }
